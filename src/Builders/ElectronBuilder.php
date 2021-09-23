@@ -38,6 +38,10 @@ class ElectronBuilder
         //get vue config contents
         $vue_config = file_get_contents('vue.config.js');
 
+        //set env to production
+        $env_contents = file_get_contents('.env.local');
+        file_put_contents('.env.local', str_replace('VUE_APP_ENV=local', 'VUE_APP_ENV=production', $env_contents));
+
         $archs = ['ia32', 'x64'];
         foreach ( $archs as $arch ) {
             //set arch
@@ -53,6 +57,9 @@ class ElectronBuilder
 
         //restore vue config
         file_put_contents('vue.config.js', $vue_config);
+
+        //restore env to local
+        file_put_contents('.env.local', str_replace('VUE_APP_ENV=production', 'VUE_APP_ENV=local', $env_contents));
 
         if ( !file_exists('dist_electron') ) {
             throw new \Exception('Electron Builder failed.');

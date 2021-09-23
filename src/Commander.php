@@ -7,6 +7,7 @@ class Commander
     private static $options;
 
     public static function run($argv) {
+        chdir(dirname(__FILE__).'/../../../');
         self::parseArgv($argv);
         self::loadEnv();
         self::{self::$command.'Command'}();
