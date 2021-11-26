@@ -1,7 +1,7 @@
 <?php
-namespace LumiVueBuilder;
+namespace LumiVueBuilder\Commands;
 
-class Builder
+class BuildCommand implements CommandInterface
 {
     private static $options = [
         'skip-sprites' => false,
@@ -29,7 +29,7 @@ class Builder
             return;
         }
 
-        Spritesmith::run();
+        SpriteCommand::run();
     }
 
     private static function build() {

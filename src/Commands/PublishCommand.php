@@ -1,7 +1,7 @@
 <?php
-namespace LumiVueBuilder;
+namespace LumiVueBuilder\Commands;
 
-class Publisher
+class PublishCommand implements CommandInterface
 {
     public static function run($options) {
         $Publisher = '\\LumiVueBuilder\\Publishers\\'.pascal_case($_ENV['PUBLISHER']).'Publisher';

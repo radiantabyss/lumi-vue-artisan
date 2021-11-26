@@ -1,7 +1,7 @@
 <?php
-namespace LumiVueBuilder;
+namespace LumiVueBuilder\Commands;
 
-class Spritesmith
+class SpriteCommand implements CommandInterface
 {
     public static function run() {
         self::png();
