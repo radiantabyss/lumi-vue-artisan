@@ -1,23 +1,22 @@
 {
-    "name": "robertpw1/lumi-vue-builder",
+    "name": "radiantabyss/lumi-vue-builder",
     "description": "Lumi Vue Builder",
     "keywords": [
         "lumi vue builder",
 		"vue builder"
     ],
-    "homepage": "https://planetweb.ro",
+    "homepage": "https://radiantabyss.com",
     "license": "The Unlicense",
     "type": "library",
     "authors": [
         {
             "name": "Robert B.",
-            "email": "robert.b@planetweb.ro",
+            "email": "robert@radiantabyss.com",
             "role": "developer"
         }
     ],
     "require": {
-        "php": "^7.1",
-        "vlucas/phpdotenv": "^5.3"
+        "php": "^7.1"
     },
     "autoload": {
         "psr-4": {

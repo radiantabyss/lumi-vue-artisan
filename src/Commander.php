@@ -7,10 +7,7 @@ class Commander
     private static $options;
 
     public static function run($argv) {
-        // chdir(dirname(__FILE__).'/../../../');
-
         self::parseArgv($argv);
-        self::loadEnv();
 
         $Command = '\\LumiVueBuilder\\Commands\\'.pascal_case(self::$command).'Command';
 
@@ -52,11 +49,5 @@ class Commander
 
         self::$command = $command;
         self::$options = $options;
-    }
-
-    private static function loadEnv() {
-        //get api url from env file
-        $dotenv = \Dotenv\Dotenv::createImmutable(getcwd(), '.env.local');
-        $dotenv->load();
     }
 }

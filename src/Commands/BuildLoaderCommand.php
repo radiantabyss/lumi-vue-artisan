@@ -8,7 +8,7 @@ class BuildLoaderCommand implements CommandInterface
 
     public static function run($options) {
         self::$packages = self::getPackages();
-        self::build();
+        self::buildLoader();
     }
 
     private static function getPackages() {
@@ -27,7 +27,7 @@ class BuildLoaderCommand implements CommandInterface
 
         $packages = ['@'];
         foreach ( $matches[2] as $match ) {
-            if ( in_array($match, ['@lumi', '@lumi-loader']) ) {
+            if ( in_array($match, ['@lumi']) ) {
                 continue;
             }
 
@@ -37,8 +37,10 @@ class BuildLoaderCommand implements CommandInterface
         return $packages;
     }
 
-    private static function build() {
-        $items = [
+    private static function buildLoader() {
+        $ignored_packages = isset($_ENV['LUMI_LOADER_IGNORED_PACKAGES']) ? explode(',', $_ENV['LUMI_LOADER_IGNORED_PACKAGES']) : [];
+
+        $loader_components = [
             [
                 'name' => 'actions',
                 'path' => '/http/actions/',
@@ -73,22 +75,32 @@ class BuildLoaderCommand implements CommandInterface
 
         $code = "const Loader = {";
 
-        foreach ( $items as $item ) {
-            $code .= "\n\t".$item['name']."() {\n\t\tvar contexts = [];\n";
+        foreach ( $loader_components as $loader_component ) {
+            $code .= "\n\t".$loader_component['name']."() {\n\t\tvar contexts = {};\n";
 
             foreach ( self::$packages as $package ) {
-                if ( $package == '@' ) {
-                    $module_path = 'src'.$item['path'];
+                $package = str_replace('@', '', $package);
+
+                if ( $package == '' ) {
+                    $module_path = 'src'.$loader_component['path'];
+                    $package_namespace = '';
                 }
                 else {
-                    $module_path = $_ENV[strtoupper(str_replace('-', '_', str_replace('@', '', $package))).'_PATH'].$item['path'];
+                    //check if package is ignored
+                    if ( in_array($package, $ignored_packages) ) {
+                        continue;
+                    }
+
+                    $module_path = $_ENV[strtoupper(str_replace('-', '_', $package)).'_PATH'].$loader_component['path'];
+                    $package_namespace = 'Package_'.str_replace(' ', '', ucwords(str_replace('-', ' ', $package)));
                 }
+
 
                 if ( !file_exists($module_path) ) {
                     continue;
                 }
 
-                $code .= "\n\t\tcontexts = contexts.concat(require.context(`".$package.$item['path']."`, true, /\.".$item['extension']."/));";
+                $code .= "\n\t\tcontexts['".$package_namespace."'] = require.context(`".$package.$loader_component['path']."`, true, /\.".$loader_component['extension']."/);";
             }
 
             $code .= "\n\n\t\treturn contexts;\n\t},";
