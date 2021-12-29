@@ -62,11 +62,6 @@ class BuildLoaderCommand implements CommandInterface
                 'extension' => 'vue',
             ],
             [
-                'name' => 'routes',
-                'path' => '/routes/',
-                'extension' => 'js',
-            ],
-            [
                 'name' => 'store',
                 'path' => '/store/',
                 'extension' => 'js',
@@ -92,7 +87,7 @@ class BuildLoaderCommand implements CommandInterface
                     }
 
                     $module_path = $_ENV[strtoupper(str_replace('-', '_', $package)).'_PATH'].$loader_component['path'];
-                    $package_namespace = 'Package_'.str_replace(' ', '', ucwords(str_replace('-', ' ', $package)));
+                    $package_namespace = str_replace(' ', '', ucwords(str_replace('-', ' ', $package)));
                 }
 
 
@@ -100,7 +95,7 @@ class BuildLoaderCommand implements CommandInterface
                     continue;
                 }
 
-                $code .= "\n\t\tcontexts['".$package_namespace."'] = require.context(`".$package.$loader_component['path']."`, true, /\.".$loader_component['extension']."/);";
+                $code .= "\n\t\tcontexts['".$package_namespace."'] = require.context(`@".$package.$loader_component['path']."`, true, /\.".$loader_component['extension']."/);";
             }
 
             $code .= "\n\n\t\treturn contexts;\n\t},";
