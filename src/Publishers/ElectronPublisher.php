@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueBuilder\Publishers;
+namespace LumiVueArtisan\Publishers;
 
 class ElectronPublisher implements PublisherInterface
 {

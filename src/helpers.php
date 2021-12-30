@@ -78,5 +78,5 @@ function get_files_recursive(string $directory, array $allFiles = []) {
 }
 
 function pascal_case($str) {
-    return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $str)));
+    return str_replace(' ', '', ucwords(str_replace(['-', '_', ':'], ' ', $str)));
 }

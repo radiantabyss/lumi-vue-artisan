@@ -1,7 +1,7 @@
 <?php
-namespace LumiVueBuilder;
+namespace LumiVueArtisan;
 
-class Commander
+class Artisan
 {
     private static $command;
     private static $options;
@@ -9,7 +9,7 @@ class Commander
     public static function run($argv) {
         self::parseArgv($argv);
 
-        $Command = '\\LumiVueBuilder\\Commands\\'.pascal_case(self::$command).'Command';
+        $Command = '\\LumiVueArtisan\\Commands\\'.pascal_case(self::$command).'Command';
 
         try {
             $Command::run(self::$options);

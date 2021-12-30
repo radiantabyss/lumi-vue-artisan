@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueBuilder\Commands;
+namespace LumiVueArtisan\Commands;
 
 class HelpCommand implements CommandInterface
 {

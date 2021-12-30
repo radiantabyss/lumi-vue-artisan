@@ -1,9 +1,9 @@
 {
-    "name": "radiantabyss/lumi-vue-builder",
-    "description": "Lumi Vue Builder",
+    "name": "radiantabyss/lumi-vue-artisan",
+    "description": "Lumi Vue Artisan",
     "keywords": [
-        "lumi vue builder",
-		"vue builder"
+        "lumi vue artisan",
+		"vue artisan"
     ],
     "homepage": "https://radiantabyss.com",
     "license": "The Unlicense",
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LumiVueBuilder\\": "src"
+            "LumiVueArtisan\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "LumiVueBuilder\\Tests\\": "tests"
+            "LumiVueArtisan\\Tests\\": "tests"
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueBuilder\Publishers;
+namespace LumiVueArtisan\Publishers;
 
 class VuePublisher implements PublisherInterface
 {

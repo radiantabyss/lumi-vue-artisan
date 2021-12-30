@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueBuilder\Builders;
+namespace LumiVueArtisan\Builders;
 
 class VueBuilder implements BuilderInterface
 {
