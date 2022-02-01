@@ -3,7 +3,6 @@ namespace LumiVueArtisan\Commands;
 
 class BuildLoaderCommand implements CommandInterface
 {
-    private static $options = [];
     private static $packages;
 
     public static function run($options) {

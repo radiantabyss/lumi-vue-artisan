@@ -3,7 +3,7 @@ namespace LumiVueArtisan\Commands;
 
 class SpriteCommand implements CommandInterface
 {
-    public static function run() {
+    public static function run($options) {
         self::png();
         self::svg();
     }

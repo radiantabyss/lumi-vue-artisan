@@ -3,8 +3,6 @@ namespace LumiVueArtisan\Commands;
 
 class HelpCommand implements CommandInterface
 {
-    private static $options = [];
-
     public static function run($options) {
         echo "Commands List:\n
 \033[32minit\033[0m                 Builders Loader and Sprites
