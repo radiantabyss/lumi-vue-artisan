@@ -29,7 +29,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        SpriteCommand::run();
+        SpriteCommand::run([]);
     }
 
     private static function build() {
