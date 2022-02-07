@@ -46,7 +46,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        $Publisher = '\\LumiVueArtisan\\Publishers\\'.pascal_case($_ENV['PUBLISHER']).'Publisher';
+        $Publisher = '\\LumiVueArtisan\\Publishers\\'.pascal_case($_ENV['LUMI_PUBLISHER']).'Publisher';
         $Publisher::run(self::$options);
     }
 }
