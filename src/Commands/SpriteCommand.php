@@ -13,7 +13,7 @@ class SpriteCommand implements CommandInterface
     }
 
     private static function svg() {
-        exec('npx svg-sprite-generate -d sprites/svgs -o sprites.svg');
+        exec('npx -p svg-sprite-generator svg-sprite-generate -d sprites/svgs -o sprites.svg');
 
         $vue_component = '<script>
 export default {
