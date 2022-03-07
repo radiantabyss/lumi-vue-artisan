@@ -29,11 +29,10 @@ export default {
 
         if ( file_exists('sprites.svg') ) {
             $sprites = file_get_contents('sprites.svg');
-            $sprites = preg_replace('/stroke=".*?"/', 'stroke="currentColor"', $sprites);
-            $sprites = preg_replace('/fill=".*?"/', 'fill="currentColor"', $sprites);
+            $sprites = preg_replace('/stroke="((?!none).)*"/', 'stroke="currentColor"', $sprites);
+            $sprites = preg_replace('/fill="((?!none).)*"/', 'fill="currentColor"', $sprites);
             $sprites = str_replace('fill-static', 'fill', $sprites);
             $sprites = str_replace('stroke-static', 'stroke', $sprites);
-            $sprites = str_replace('<symbol ', '<symbol fill="currentColor" ', $sprites);
             $sprites = str_replace(['<?xml version="1.0" encoding="utf-8"?>', '</svg>', '<svg xmlns="http://www.w3.org/2000/svg">'], '', $sprites);
             $sprites = str_replace(["\n</symbol>", "\r\n</symbol>"], "</symbol>\n", $sprites);
             $sprites = trim($sprites);
@@ -63,7 +62,6 @@ export default {
                     $sprites = str_replace($match[0], str_replace('fill="currentColor" ', ' fill="none" ', $match[0]), $sprites);
                 }
             }
-
             $vue_component = str_replace('</svg>', $sprites."\n\n</svg>", $vue_component);
 
             unlink('sprites.svg');
