@@ -13,7 +13,8 @@ class SpriteCommand implements CommandInterface
     }
 
     private static function svg() {
-        exec('npx -p svg-sprite-generator svg-sprite-generate -d sprites/svgs -o sprites.svg');
+        $sprites_dir = 'sprites/svgs';
+        exec('npx -p svg-sprite-generator svg-sprite-generate -d '.$sprites_dir.' -o sprites.svg');
 
         $vue_component = '<script>
 export default {
@@ -44,7 +45,7 @@ export default {
                     continue;
                 }
 
-                $contents = file_get_contents('sprites/svgs/'.$svg);
+                $contents = file_get_contents($sprites_dir.'/'.$svg);
 
                 //put back svg's attrs
                 preg_match('/\<svg.*?\>/', $contents, $match);
