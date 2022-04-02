@@ -26,7 +26,7 @@ class BuildLoaderCommand implements CommandInterface
 
         $packages = ['@'];
         foreach ( $matches[2] as $match ) {
-            if ( in_array($match, ['@lumi']) ) {
+            if ( in_array($match, ['@lumi', '@lumi-electron']) ) {
                 continue;
             }
 
