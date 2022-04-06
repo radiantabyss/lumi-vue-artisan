@@ -70,7 +70,7 @@ function get_files_recursive(string $directory, array $allFiles = []) {
             $allFiles += get_files_recursive($fullPath, $allFiles);
         }
         else {
-            $allFiles[] = $file;
+            $allFiles[] = $fullPath;
         }
     }
 
