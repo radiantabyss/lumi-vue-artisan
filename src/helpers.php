@@ -67,7 +67,7 @@ function get_files_recursive(string $directory, array $allFiles = []) {
         $fullPath = $directory. DIRECTORY_SEPARATOR .$file;
 
         if( is_dir($fullPath) ) {
-            $allFiles += getFiles($fullPath, $allFiles);
+            $allFiles += get_files_recursive($fullPath, $allFiles);
         }
         else {
             $allFiles[] = $file;
