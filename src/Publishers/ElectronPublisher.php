@@ -98,8 +98,7 @@ class ElectronPublisher implements PublisherInterface
                 <Type>0</Type><User>root</User><Pass encoding="base64"></Pass>
                 <Logontype>1</Logontype><TimezoneOffset>0</TimezoneOffset>
                 <PasvMode>MODE_DEFAULT</PasvMode><MaximumMultipleConnections>0</MaximumMultipleConnections>
-                <EncodingType>Auto</EncodingType><BypassProxy>0</BypassProxy>
-                <Name>'.$server['name'].'</Name>';
+                <EncodingType>Auto</EncodingType><BypassProxy>0</BypassProxy>';
 
             $path = '1 0 ';
             $exp = explode('/', trim($server['path'], '/'));
