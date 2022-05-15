@@ -111,7 +111,7 @@ class ElectronPublisher implements PublisherInterface
             foreach ( $archs as $arch ) {
                 $xml .= '<File>
                 <LocalFile>'.getcwd().'/../files_cdn/public/'.self::$name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</LocalFile>
-                <RemoteFile>'.self::$app_name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</RemoteFile>
+                <RemoteFile>'.self::$name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</RemoteFile>
                 <RemotePath>'.$path.'</RemotePath>
                 <Download>0</Download><DataType>1</DataType></File>';
             }
