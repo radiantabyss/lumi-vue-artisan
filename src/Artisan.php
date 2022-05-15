@@ -23,16 +23,16 @@ class Artisan
         $options = [];
 
         foreach ( $argv as $k => $a ) {
-            if ( preg_match('/ \-\-(.+)=(.+)/', $a, $m) ) {
+            if ( preg_match('/\-\-(.+)=(.+)/', $a, $m) ) {
                 $options[$m[1]] = $m[2];
             }
-            else if ( preg_match('/ \-\-(.+)/', $a, $m) ) {
+            else if ( preg_match('/\-\-(.+)/', $a, $m) ) {
                 $options[$m[1]] = true;
             }
-            else if ( preg_match('/ \-(.+)=(.+)/', $a, $m) ) {
+            else if ( preg_match('/\-(.+)=(.+)/', $a, $m) ) {
                 $options[$m[1]] = $m[2];
             }
-            else if ( preg_match('/ \-(.+)/', $a, $m) ) {
+            else if ( preg_match('/\-(.+)/', $a, $m) ) {
                 $options[$m[1]] = true;
             }
             else {
@@ -45,6 +45,7 @@ class Artisan
 
         //remove unused options
         unset($options['builder']);
+        unset($options[0]);
         unset($options[1]);
 
         self::$command = $command;
