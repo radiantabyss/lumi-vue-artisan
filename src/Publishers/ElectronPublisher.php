@@ -4,18 +4,18 @@ namespace LumiVueArtisan\Publishers;
 class ElectronPublisher implements PublisherInterface
 {
     private static $options;
+    private static $name;
     private static $version;
-    private static $app_name;
 
     public static function run($options) {
         //set options
         self::$options = $options;
 
-        //get version
-        self::setAppName();
+        //set app name
+        self::setName();
 
-        //get version
-        self::getVersion();
+        //set version
+        self::setVersion();
 
         //copy installer to cdn folder
         self::copyInstaller();
@@ -30,13 +30,13 @@ class ElectronPublisher implements PublisherInterface
         self::makeFilezillaXML();
     }
 
-    private static function setAppName() {
+    private static function setName() {
         //get app name from vue config
         preg_match('/productName\: \'(.*)?\'\,/', file_get_contents('vue.config.js'), $match);
-        self::$app_name = $match[1];
+        self::$name = $match[1];
     }
 
-    private static function getVersion() {
+    private static function setVersion() {
         //get version from package.json
         preg_match('/"version"\: "(.*)?"/', file_get_contents('package.json'), $match);
         self::$version = $match[1];
@@ -45,8 +45,8 @@ class ElectronPublisher implements PublisherInterface
     private static function copyInstaller() {
         $archs = ['ia32', 'x64'];
         foreach ( $archs as $arch ) {
-            copy('dist_electron/'.self::$app_name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe',
-                '../files_cdn/public/'.self::$app_name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe');
+            copy('dist_electron/'.self::$name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe',
+                '../files_cdn/public/'.self::$name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe');
         }
     }
 
@@ -110,21 +110,21 @@ class ElectronPublisher implements PublisherInterface
 
             foreach ( $archs as $arch ) {
                 $xml .= '<File>
-                <LocalFile>'.__DIR__.'/../files_cdn/public/'.self::$app_name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</LocalFile>
-                <RemoteFile>Dota2Mods V4 Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</RemoteFile>
+                <LocalFile>'.getcwd().'/../files_cdn/public/'.self::$name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</LocalFile>
+                <RemoteFile>'.self::$app_name.' Setup '.self::$version.($arch == 'ia32' ? '-x32' : '').'.exe</RemoteFile>
                 <RemotePath>'.$path.'</RemotePath>
                 <Download>0</Download><DataType>1</DataType></File>';
             }
 
             if ( $i == 0 ) {
                 $xml .= '<File>
-                    <LocalFile>'.__DIR__.'/../files_cdn/public/app.zip</LocalFile>
+                    <LocalFile>'.getcwd().'/../files_cdn/public/app.zip</LocalFile>
                     <RemoteFile>app.zip</RemoteFile>
                     <RemotePath>'.$path.'</RemotePath>
                     <Download>0</Download><DataType>1</DataType></File>';
 
                 $xml .= '<File>
-                    <LocalFile>'.__DIR__.'/../files_cdn/public/latest.zip</LocalFile>
+                    <LocalFile>'.getcwd().'/../files_cdn/public/latest.zip</LocalFile>
                     <RemoteFile>latest.zip</RemoteFile>
                     <RemotePath>'.$path.'</RemotePath>
                     <Download>0</Download><DataType>1</DataType></File>';
