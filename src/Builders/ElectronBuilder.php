@@ -10,7 +10,7 @@ class ElectronBuilder
 
         //check for required options
         if ( !isset($options['version']) ) {
-            throw new \Exception('Vue Publisher Error: version is required. Example: --version=1.0.0');
+            throw new \Exception('Electron Builder Error: version is required. Example: --version=1.0.0');
         }
 
         //set version

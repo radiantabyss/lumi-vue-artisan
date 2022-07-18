@@ -29,12 +29,6 @@ class Artisan
             else if ( preg_match('/\-\-(.+)/', $a, $m) ) {
                 $options[$m[1]] = true;
             }
-            else if ( preg_match('/\-(.+)=(.+)/', $a, $m) ) {
-                $options[$m[1]] = $m[2];
-            }
-            else if ( preg_match('/\-(.+)/', $a, $m) ) {
-                $options[$m[1]] = true;
-            }
             else {
                 $options[$k] = $a;
             }

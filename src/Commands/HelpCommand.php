@@ -14,6 +14,6 @@ class HelpCommand implements CommandInterface
     --keep-dark-mode
     --version=        Required for Electron
 \033[32mpublish\033[0m               Publishes the build (release or upload)
-\033[32msprite\033[0m                Builds the sprites";
+\033[32msprite\033[0m                Builds the sprites\n\n";
     }
 }
