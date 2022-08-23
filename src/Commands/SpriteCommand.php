@@ -50,7 +50,7 @@ export default {
                 //put back svg's attrs
                 preg_match('/\<svg.*?\>/', $contents, $match);
                 $attrs = str_replace(['<svg', '>'], '', $match[0]);
-                $ignored_attrs = ['xmlns', 'xmlns:link', 'class', 'viewBox', 'width', 'height', 'version'];
+                $ignored_attrs = ['xmlns', 'xmlns:link', 'class', 'viewBox', 'width', 'height', 'version', 'id'];
                 foreach ( $ignored_attrs as $ignored_attr ) {
                     $attrs = preg_replace('/ '.$ignored_attr.'=".*?"/', '', $attrs);
                 }
