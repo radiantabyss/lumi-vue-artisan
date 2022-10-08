@@ -53,12 +53,14 @@ class VueBuilder implements BuilderInterface
                     "'APP_JS' => ''",
                     "'VENDORS_JS' => ''",
                     "'API_URL' => ''",
+                    "'UPLOADS_URL' => ''",
                 ],
                 [
                     "'APP_CSS' => '".$file_names['app_css']."'",
                     "'APP_JS' => '".$file_names['app_js']."'",
                     "'VENDORS_JS' => '".$file_names['vendors_js']."'",
                     "'API_URL' => '".$_ENV['VUE_APP_API_URL']."'",
+                    "'UPLOADS_URL' => '".$_ENV['VUE_APP_UPLOADS_URL']."'",
                 ],
                 $ssr_env_contents
             );
