@@ -29,6 +29,7 @@ class VueBuilder implements BuilderInterface
     }
 
     private static function build() {
+        exec('npm install');
         exec('npm run build');
 
         if ( !file_exists('dist') ) {
@@ -40,18 +41,51 @@ class VueBuilder implements BuilderInterface
         //get file names
         $file_names = self::getFileNames();
 
-        //get api url
-        $api_url = $_ENV['VUE_APP_API_URL'];
+        //check if is ssr
+        if ( file_exists('ssr-env.php') ) {
+            copy('index-src.php', 'dist/index.php');
 
-        //replace in index src
-        $index_src_contents = file_get_contents('index-src.php');
-        $index_src_contents = str_replace(
-            ['{{app_css}}', '{{app_js}}', '{{vendors_js}}', '{{api_url}}'],
-            [$file_names['app_css'], $file_names['app_js'], $file_names['vendors_js'], $api_url],
-            $index_src_contents
-        );
+            //replace in ssr-env
+            $ssr_env_contents = file_get_contents('ssr-env.php');
+            $ssr_env_contents = str_replace(
+                [
+                    "'APP_CSS' => ''",
+                    "'APP_JS' => ''",
+                    "'VENDORS_JS' => ''",
+                    "'API_URL' => ''",
+                ],
+                [
+                    "'APP_CSS' => '".$file_names['app_css']."'",
+                    "'APP_JS' => '".$file_names['app_js']."'",
+                    "'VENDORS_JS' => '".$file_names['vendors_js']."'",
+                    "'API_URL' => '".$_ENV['VUE_APP_API_URL']."'",
+                ],
+                $ssr_env_contents
+            );
 
-        file_put_contents('dist/index.php', $index_src_contents);
+            file_put_contents('ssr-env.php', $ssr_env_contents);
+        }
+        else {
+            //replace in index src
+            $index_src_contents = file_get_contents('index-src.php');
+            $index_src_contents = str_replace(
+                [
+                    '{{app_css}}',
+                    '{{app_js}}',
+                    '{{vendors_js}}',
+                    '{{api_url}}'
+                ],
+                [
+                    $file_names['app_css'],
+                    $file_names['app_js'],
+                    $file_names['vendors_js'],
+                    $_ENV['VUE_APP_API_URL']
+                ],
+                $index_src_contents
+            );
+
+            file_put_contents('dist/index.php', $index_src_contents);
+        }
     }
 
     private static function getFileNames() {
