@@ -47,13 +47,13 @@ class VueBuilder implements BuilderInterface
 
             //replace in ssr-env
             $ssr_env_contents = file_get_contents('ssr-env.php');
-            $ssr_env_contents = str_replace(
+            $ssr_env_contents = preg_replace(
                 [
-                    "'APP_CSS' => ''",
-                    "'APP_JS' => ''",
-                    "'VENDORS_JS' => ''",
-                    "'API_URL' => ''",
-                    "'UPLOADS_URL' => ''",
+                    "/'APP_CSS' => '.*?'/",
+                    "/'APP_JS' => '.*?'/",
+                    "/'VENDORS_JS' => '.*?'/",
+                    "/'API_URL' => '.*?'/",
+                    "/'UPLOADS_URL' => '.*?'/",
                 ],
                 [
                     "'APP_CSS' => '".$file_names['app_css']."'",
