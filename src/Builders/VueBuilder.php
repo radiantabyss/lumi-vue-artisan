@@ -29,7 +29,10 @@ class VueBuilder implements BuilderInterface
     }
 
     private static function build() {
-        exec('npm install');
+        if ( !self::$options['fast'] ) {
+            exec('npm install');
+        }
+        
         exec('npm run build');
 
         if ( !file_exists('dist') ) {

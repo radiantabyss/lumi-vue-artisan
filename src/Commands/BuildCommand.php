@@ -8,6 +8,7 @@ class BuildCommand implements CommandInterface
         'skip-build' => false,
         'skip-publish' => false,
         'keep-dark-mode' => false,
+        'fast' => false,
     ];
 
     public static function run($options) {
@@ -25,7 +26,7 @@ class BuildCommand implements CommandInterface
     }
 
     private static function sprites() {
-        if ( self::$options['skip-sprites'] ) {
+        if ( self::$options['skip-sprites'] || self::$options['fast'] ) {
             return;
         }
 
