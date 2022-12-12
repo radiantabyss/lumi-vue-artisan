@@ -32,7 +32,7 @@ class VueBuilder implements BuilderInterface
         if ( !self::$options['fast'] ) {
             exec('npm install');
         }
-        
+
         exec('npm run build');
 
         if ( !file_exists('dist') ) {
@@ -78,7 +78,7 @@ class VueBuilder implements BuilderInterface
                     '{{app_css}}',
                     '{{app_js}}',
                     '{{vendors_js}}',
-                    '{{api_url}}'
+                    '{{back_url}}'
                 ],
                 [
                     $file_names['app_css'],
