@@ -14,6 +14,6 @@ class HelpCommand implements CommandInterface
     \033[93m--version=\033[0m        Required for Electron\n
 \033[32mpublish\033[0m               Publishes the build (release or upload)
 \033[32msprite\033[0m                Builds the sprites\n\n
-\033[32mcopy-static\033[0m    Copies static assets to publi folder. Use this before starting the dev server.c\n\n";
+\033[32mstatic\033[0m    Copies static assets to public folder\n\n";
     }
 }
