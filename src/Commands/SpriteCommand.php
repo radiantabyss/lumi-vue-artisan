@@ -9,11 +9,29 @@ class SpriteCommand implements CommandInterface
     }
 
     private static function png() {
+        $sprites_dir = $_ENV['PNG_SPRITES_PATH'] ?? 'sprites/png';
+
+        //check if sprites dir exists
+        if ( !file_exists($sprites_dir) ) {
+            return;
+        }
+
         exec('npm run sprite');
     }
 
     private static function svg() {
-        $sprites_dir = 'sprites/svgs';
+        $sprites_dir = $_ENV['SVG_SPRITES_PATH'] ?? 'sprites/svgs';
+
+        //check if sprites dir exists
+        if ( !file_exists($sprites_dir) ) {
+            echo "\n\nError: Sprites dir doesn't exist.";
+            return;
+        }
+
+        if ( !command_exists('svg-sprite-generate') ) {
+            echo "\n\nRun \033[96mnpm i svg-sprite-generator -g\033[0m for build speed improvement.\n\n";
+        }
+
         exec((!command_exists('svg-sprite-generate') ? 'npx -p svg-sprite-generator ' : '').'svg-sprite-generate -d '.$sprites_dir.' -o sprites.svg');
 
         $vue_component = '<script>
@@ -68,7 +86,13 @@ export default {
             unlink('sprites.svg');
         }
 
-        file_put_contents('src/components/SpritesComponent.vue', $vue_component);
+        if ( file_exists('src/Domains/Common/Components/SpritesComponent.vue') ) {
+            file_put_contents('src/Domains/Common/Components/SpritesComponent.vue', $vue_component);
+        }
+        else {
+            file_put_contents('src/components/SpritesComponent.vue', $vue_component);
+        }
+
 
     }
 }
