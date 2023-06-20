@@ -86,13 +86,6 @@ export default {
             unlink('sprites.svg');
         }
 
-        if ( file_exists('src/Domains/Common/Components/SpritesComponent.vue') ) {
-            file_put_contents('src/Domains/Common/Components/SpritesComponent.vue', $vue_component);
-        }
-        else {
-            file_put_contents('src/components/SpritesComponent.vue', $vue_component);
-        }
-
-
+        file_put_contents('src/Domains/Common/Components/SpritesComponent.vue', $vue_component);
     }
 }
