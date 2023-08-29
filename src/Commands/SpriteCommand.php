@@ -67,6 +67,12 @@ export default {
 
                 //put back svg's attrs
                 preg_match('/\<svg.*?\>/', $contents, $match);
+                
+                if ( !$match ) {
+                    echo "\n\nError: File ".$svg." is not formatted correctly. <svg> tag should beging and end on the same row.";
+                    return;
+                }
+
                 $attrs = str_replace(['<svg', '>'], '', $match[0]);
                 $ignored_attrs = ['xmlns', 'xmlns:link', 'class', 'viewBox', 'width', 'height', 'version', 'id'];
                 foreach ( $ignored_attrs as $ignored_attr ) {
