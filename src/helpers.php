@@ -1,7 +1,29 @@
 <?php
 if ( !function_exists('dmp') ) {
-    function dmp($text) {
-        var_dump($text);
+    function dmp($text, $text2 = null) {
+        $pre = true;
+        if ( php_sapi_name() == 'cli' ) {
+            $pre = false;
+        }
+
+        if ( $pre ) {
+            echo '<pre>';
+        }
+
+        if ( $text2 !== null ) {
+            echo $text.': ';
+            var_dump($text2);
+        }
+        else {
+            var_dump($text);
+        }
+
+        if ( $pre ) {
+            echo '</pre>';
+        }
+        else {
+            echo "\n";
+        }
     }
 }
 
@@ -88,6 +110,12 @@ if ( !function_exists('get_files_recursive') ) {
     }
 }
 
+if ( !function_exists('snake_case') ) {
+    function snake_case($str) {
+        return strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', lcfirst($file)));
+    }
+}
+
 if ( !function_exists('pascal_case') ) {
     function pascal_case($str) {
         return str_replace(' ', '', ucwords(str_replace(['-', '_', ':'], ' ', $str)));
@@ -107,5 +135,29 @@ if ( !function_exists('command_exists') ) {
         }
 
         return true;
+    }
+}
+
+if ( !function_exists('decode_json') ) {
+    function decode_json($string) {
+        if (gettype($string) == 'string') {
+            return json_decode($string, true);
+        }
+
+        return $string;
+    }
+}
+
+if ( !function_exists('encode_json') ) {
+    function encode_json($array, $null_if_empty = true) {
+        if ( gettype($array) == 'string' ) {
+            return $array;
+        }
+
+        if ( $array === null || !count($array) ) {
+            return $null_if_empty ? null : json_encode([]);
+        }
+
+        return json_encode($array);
     }
 }

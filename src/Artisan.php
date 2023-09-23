@@ -3,13 +3,14 @@ namespace LumiVueArtisan;
 
 class Artisan
 {
+    private static $package;
     private static $command;
     private static $options;
 
     public static function run($argv) {
         self::parseArgv($argv);
 
-        $Command = '\\LumiVueArtisan\\Commands\\'.pascal_case(self::$command).'Command';
+        $Command = '\\LumiVue'.self::$package.'\\Commands\\'.pascal_case(self::$command).'Command';
 
         try {
             $Command::run(self::$options);
@@ -42,6 +43,18 @@ class Artisan
         unset($options[0]);
         unset($options[1]);
 
+        $package = 'Artisan';
+        if ( preg_match('/\:/', $command) ) {
+            $exp = explore(':', $command);
+            $package = $exp[0];
+            $command = $exp[1];
+
+            if ( $package == 'ssr' ) {
+                $package = 'SSR';
+            }
+        }
+
+        self::$package = $package;
         self::$command = $command;
         self::$options = $options;
     }
