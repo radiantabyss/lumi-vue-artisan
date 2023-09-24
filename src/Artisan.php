@@ -45,7 +45,7 @@ class Artisan
 
         $package = 'Artisan';
         if ( preg_match('/\:/', $command) ) {
-            $exp = explore(':', $command);
+            $exp = explode(':', $command);
             $package = $exp[0];
             $command = $exp[1];
 
