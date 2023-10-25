@@ -15,6 +15,9 @@ class BuildCommand implements CommandInterface
         //set options
         self::$options = array_merge(self::$options, $options);
 
+        //build sass
+        SassCommand::run([]);
+
         //run sprites
         self::sprites();
 

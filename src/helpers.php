@@ -112,7 +112,7 @@ if ( !function_exists('get_files_recursive') ) {
 
 if ( !function_exists('snake_case') ) {
     function snake_case($str) {
-        return strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', lcfirst($file)));
+        return strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', lcfirst($str)));
     }
 }
 
