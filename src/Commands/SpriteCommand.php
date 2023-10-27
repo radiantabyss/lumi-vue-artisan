@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueArtisan\Commands;
+namespace Lumi\Vue\Artisan\Commands;
 
 class SpriteCommand implements CommandInterface
 {

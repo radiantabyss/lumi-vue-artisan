@@ -28,4 +28,4 @@ function loadEnv() {
 
 loadEnv();
 require __DIR__.'/vendor/autoload.php';
-\LumiVueArtisan\Artisan::run($argv);
+\Lumi\Vue\Artisan\Artisan::run($argv);

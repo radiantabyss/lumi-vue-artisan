@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueArtisan\Publishers;
+namespace Lumi\Vue\Artisan\Publishers;
 
 interface PublisherInterface
 {

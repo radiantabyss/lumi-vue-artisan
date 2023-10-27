@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueArtisan\Builders;
+namespace Lumi\Vue\Artisan\Builders;
 
 interface BuilderInterface
 {

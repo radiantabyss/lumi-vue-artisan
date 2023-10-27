@@ -1,5 +1,5 @@
 <?php
-namespace LumiVueArtisan\Commands;
+namespace Lumi\Vue\Artisan\Commands;
 
 class BuildCommand implements CommandInterface
 {
@@ -41,7 +41,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        $Builder = '\\LumiVueArtisan\\Builders\\'.pascal_case($_ENV['LUMI_BUILDER']).'Builder';
+        $Builder = '\\Lumi\\Vue\\Artisan\\Builders\\'.pascal_case($_ENV['LUMI_BUILDER']).'Builder';
         $Builder::run(self::$options);
     }
 
@@ -50,7 +50,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        $Publisher = '\\LumiVueArtisan\\Publishers\\'.pascal_case($_ENV['LUMI_PUBLISHER']).'Publisher';
+        $Publisher = '\\Lumi\\Vue\\Artisan\\Publishers\\'.pascal_case($_ENV['LUMI_PUBLISHER']).'Publisher';
         $Publisher::run(self::$options);
     }
 }

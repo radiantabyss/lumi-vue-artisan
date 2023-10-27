@@ -5,14 +5,14 @@
         "lumi vue artisan",
 		"vue artisan"
     ],
-    "homepage": "https://radiantabyss.com",
+    "homepage": "https://lumi.radiantabyss.com/vue-artisan",
     "license": "proprietary",
     "type": "library",
     "authors": [
         {
             "name": "Robert B.",
             "email": "robert@radiantabyss.com",
-            "role": "developer"
+            "role": "owner"
         }
     ],
     "require": {
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LumiVueArtisan\\": "src"
+            "Lumi\\Vue\\Artisan\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "LumiVueArtisan\\Tests\\": "tests"
+            "Lumi\\Vue\\Artisan\\Tests\\": "tests"
         }
     }
 }
