@@ -23,15 +23,27 @@ class LangCommand implements CommandInterface
         $terms = [];
 
         foreach ( $files as $file ) {
+            //ignore scss files
             if ( preg_match('/\.scss/', $file)  ) {
                 continue;
             }
 
+            //search for __() function
             $contents = file_get_contents($file);
             preg_match_all('/\_\_\(\'(.*?)\'\)/', $contents, $matches);
 
-            foreach ( $matches[1] as $match ) {
-                $terms[] = $match;
+            if ( count($matches) && count($matches[1]) ) {
+                foreach ( $matches[1] as $match ) {
+                    $terms[] = $match;
+                }
+            }
+
+            //search for <t> tags
+            preg_match_all('/<t>(.*?)<\/t>/s', $contents, $matches);
+            if ( count($matches) && count($matches[1]) ) {
+                foreach ( $matches[1] as $match ) {
+                    $terms[] = $match;
+                }
             }
         }
 
