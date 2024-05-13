@@ -10,7 +10,7 @@ class Artisan
     public static function run($argv) {
         self::parseArgv($argv);
 
-        $Command = '\\LumiVue'.self::$package.'\\Commands\\'.pascal_case(self::$command).'Command';
+        $Command = '\\Lumi\\Vue'.self::$package.'\\Commands\\'.pascal_case(self::$command).'Command';
 
         try {
             $Command::run(self::$options);
