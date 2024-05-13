@@ -28,19 +28,20 @@ class LangCommand implements CommandInterface
                 continue;
             }
 
-            //search for __() function
             $contents = file_get_contents($file);
-            preg_match_all('/\_\_\(\'(.*?)\'\)/', $contents, $matches);
 
-            if ( count($matches) && count($matches[1]) ) {
-                foreach ( $matches[1] as $match ) {
-                    $terms[] = $match;
+            $regexs = [
+                '/\_\_\(\'(.*?)\'\)/', // __() function
+                '/<t>(.*?)<\/t>/s', // <t> tags
+            ];
+
+            foreach ( $regexs as $regex ) {
+                preg_match_all($regex, $contents, $matches);
+
+                if ( !count($matches) || !count($matches[1]) ) {
+                    continue;
                 }
-            }
-
-            //search for <t> tags
-            preg_match_all('/<t>(.*?)<\/t>/s', $contents, $matches);
-            if ( count($matches) && count($matches[1]) ) {
+                
                 foreach ( $matches[1] as $match ) {
                     $terms[] = $match;
                 }
