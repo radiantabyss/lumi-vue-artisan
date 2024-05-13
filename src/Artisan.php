@@ -1,5 +1,5 @@
 <?php
-namespace Lumi\Vue\Artisan;
+namespace Lumi\VueArtisan;
 
 class Artisan
 {

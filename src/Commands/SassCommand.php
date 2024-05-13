@@ -1,5 +1,5 @@
 <?php
-namespace Lumi\Vue\Artisan\Commands;
+namespace Lumi\VueArtisan\Commands;
 
 class SassCommand implements CommandInterface
 {

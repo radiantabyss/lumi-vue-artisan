@@ -1,5 +1,5 @@
 <?php
-namespace Lumi\Vue\Artisan\Builders;
+namespace Lumi\VueArtisan\Builders;
 
 class ElectronBuilder
 {
