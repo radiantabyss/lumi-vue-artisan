@@ -92,6 +92,6 @@ export default {
             unlink('sprites.svg');
         }
 
-        file_put_contents('src/Domains/Common/Components/SpritesComponent.vue', $vue_component);
+        file_put_contents('src/Components/SpritesComponent.vue', $vue_component);
     }
 }
