@@ -48,7 +48,7 @@ class ElectronBuilder
             file_put_contents('vue.config.js', preg_replace("/'nsis.*?'/", "'nsis:$arch'", $vue_config));
 
             //run build
-            exec('npm run electron:build');
+            shell_exec('npm run electron:build');
 
             //rename installer
             rename('dist_electron/'.$app_name.' Setup '.self::$options['version'].'.exe',

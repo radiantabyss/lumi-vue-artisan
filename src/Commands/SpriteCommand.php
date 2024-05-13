@@ -16,7 +16,7 @@ class SpriteCommand implements CommandInterface
             return;
         }
 
-        exec('npm run sprite');
+        shell_exec('npm run sprite');
     }
 
     private static function svg() {
@@ -32,7 +32,7 @@ class SpriteCommand implements CommandInterface
             echo "\n\nRun \033[96mnpm i svg-sprite-generator -g\033[0m for build speed improvement.\n\n";
         }
 
-        exec((!command_exists('svg-sprite-generate') ? 'npx -p svg-sprite-generator ' : '').'svg-sprite-generate -d '.$sprites_dir.' -o sprites.svg');
+        shell_exec((!command_exists('svg-sprite-generate') ? 'npx -p svg-sprite-generator ' : '').'svg-sprite-generate -d '.$sprites_dir.' -o sprites.svg');
 
         $vue_component = '<script>
 export default {
@@ -67,7 +67,7 @@ export default {
 
                 //put back svg's attrs
                 preg_match('/\<svg.*?\>/', $contents, $match);
-                
+
                 if ( !$match ) {
                     echo "\n\nError: File ".$svg." is not formatted correctly. <svg> tag should beging and end on the same row.";
                     return;

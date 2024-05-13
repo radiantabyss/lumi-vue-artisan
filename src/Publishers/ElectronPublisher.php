@@ -54,7 +54,7 @@ class ElectronPublisher implements PublisherInterface
         //zip asar
         $cwd = getcwd();
         chdir('dist_electron/win-unpacked/resources');
-        exec('zip -r app.zip app.asar');
+        shell_exec('zip -r app.zip app.asar');
         chdir($cwd);
         rename('dist_electron/win-unpacked/resources/app.zip', '../files_cdn/public/app.zip');
     }
@@ -72,7 +72,7 @@ class ElectronPublisher implements PublisherInterface
             copy($file, 'latest/'.$file);
         }
 
-        exec('zip -r latest.zip latest');
+        shell_exec('zip -r latest.zip latest');
         rename('latest.zip', '../files_cdn/public/latest.zip');
         delete_recursive('latest');
     }

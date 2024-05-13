@@ -4,7 +4,11 @@ namespace Lumi\VueArtisan\Commands;
 class SassCommand implements CommandInterface
 {
     public static function run($options) {
-        $contents = "@import \"abstracts/settings\";\n@import \"abstracts/mixins\";\n";
+        $contents = "@import \"abstracts/settings\";\n"
+        ."@import \"abstracts/mixins\";\n\n"
+        ."@import \"../../node_modules/@radiantabyss/lumi-vue/src/Sass/alert.scss\";\n"
+        ."@import \"../../node_modules/@radiantabyss/lumi-vue/src/Sass/confirm.scss\";\n\n";
+        
         $files = get_files_recursive('src/Sass');
         $current_folder = '';
 

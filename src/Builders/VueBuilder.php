@@ -30,10 +30,10 @@ class VueBuilder implements BuilderInterface
 
     private static function build() {
         if ( !self::$options['fast'] ) {
-            exec('npm install');
+            shell_exec('npm install');
         }
 
-        exec('npm run build');
+        shell_exec('npm run build');
 
         if ( !file_exists('dist') ) {
             throw new \Exception('Vue Builder failed.');
