@@ -41,7 +41,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        $Builder = '\\Lumi\\Vue\\Artisan\\Builders\\'.pascal_case($_ENV['LUMI_BUILDER']).'Builder';
+        $Builder = '\\Lumi\\VueArtisan\\Builders\\'.pascal_case($_ENV['LUMI_BUILDER']).'Builder';
         $Builder::run(self::$options);
     }
 
@@ -50,7 +50,7 @@ class BuildCommand implements CommandInterface
             return;
         }
 
-        $Publisher = '\\Lumi\\Vue\\Artisan\\Publishers\\'.pascal_case($_ENV['LUMI_PUBLISHER']).'Publisher';
+        $Publisher = '\\Lumi\\VueArtisan\\Publishers\\'.pascal_case($_ENV['LUMI_PUBLISHER']).'Publisher';
         $Publisher::run(self::$options);
     }
 }
