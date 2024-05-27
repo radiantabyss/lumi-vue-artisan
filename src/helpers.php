@@ -161,3 +161,15 @@ if ( !function_exists('encode_json') ) {
         return json_encode($array);
     }
 }
+
+if ( !function_exists('random_string') ) {
+    function random_string($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $string;
+    }
+}
