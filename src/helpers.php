@@ -36,7 +36,7 @@ if ( !function_exists('ddmp') ) {
 if ( !function_exists('delete_recursive') ) {
     function delete_recursive($directory) {
         foreach(glob("{$directory}/*") as $file) {
-            if ( is_dir($file) ) {
+            if ( is_dir($file) && !is_link($file) ) {
                 delete_recursive($file);
             }
             else {
@@ -130,7 +130,7 @@ if ( !function_exists('command_exists') ) {
         if ( !$response ) {
             return false;
         }
-        
+
         if ( $is_windows && preg_match('/Could not find files for the given pattern/', $response) ) {
             return false;
         }
