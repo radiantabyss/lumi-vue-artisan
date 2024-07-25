@@ -36,7 +36,10 @@ if ( !function_exists('ddmp') ) {
 if ( !function_exists('delete_recursive') ) {
     function delete_recursive($directory) {
         foreach(glob("{$directory}/*") as $file) {
-            if ( is_dir($file) && !is_link($file) ) {
+            if ( is_link($file) ) {
+                is_dir($file) ? @rmdir($file) : @unlink($file);
+            }
+            if ( is_dir($file) ) {
                 delete_recursive($file);
             }
             else {
