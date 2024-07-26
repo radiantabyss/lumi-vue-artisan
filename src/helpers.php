@@ -39,7 +39,7 @@ if ( !function_exists('delete_recursive') ) {
             if ( is_link($file) ) {
                 is_dir($file) ? @rmdir($file) : @unlink($file);
             }
-            if ( is_dir($file) ) {
+            else if ( is_dir($file) ) {
                 delete_recursive($file);
             }
             else {
