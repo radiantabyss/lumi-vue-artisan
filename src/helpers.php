@@ -37,7 +37,8 @@ if ( !function_exists('delete_recursive') ) {
     function delete_recursive($directory) {
         foreach(glob("{$directory}/*") as $file) {
             if ( is_link($file) ) {
-                is_dir($file) ? @rmdir($file) : @unlink($file);
+                @rmdir($file);
+                @unlink($file);
             }
             else if ( is_dir($file) ) {
                 delete_recursive($file);
