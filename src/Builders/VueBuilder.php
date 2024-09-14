@@ -23,9 +23,6 @@ class VueBuilder implements BuilderInterface
 
         //set error page
         self::errorPage();
-
-        //handle dark mode
-        self::darkModeRemover();
     }
 
     private static function build() {
@@ -153,22 +150,5 @@ class VueBuilder implements BuilderInterface
         '    <div class="subtitle">We\'re sorry, the page you\'re looking for doesn\'t exist.</div>'.
         '</div></div>',
         $contents));
-    }
-
-    private static function darkModeRemover() {
-        if ( self::$options['keep-dark-mode'] ) {
-            return;
-        }
-
-        $files = scandir('dist/css');
-        foreach ( $files as $file ) {
-            if ( !preg_match('/app/', $file) ) {
-                continue;
-            }
-
-            $contents = file_get_contents('dist/css/'.$file);
-            $contents = preg_replace('/\@media \(prefers.*?\}\}/', '', $contents);
-            file_put_contents('dist/css/'.$file, $contents);
-        }
     }
 }
