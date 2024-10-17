@@ -6,7 +6,6 @@ class SpriteCommand implements CommandInterface
     public static function run($options) {
         self::png();
         self::svg();
-        StaticCommand::run([]);
     }
 
     private static function png() {
