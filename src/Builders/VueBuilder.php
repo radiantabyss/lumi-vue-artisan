@@ -12,8 +12,11 @@ class VueBuilder implements BuilderInterface
         //build
         self::build();
 
+        //rename index.html to index.php
+        rename('dist/index.html', 'dist/index.php');
+
         //write index.php
-        self::writeIndex();
+        self::ssr();
 
         //create htaccess file for apache servers
         self::htaccess();
@@ -37,91 +40,37 @@ class VueBuilder implements BuilderInterface
         }
     }
 
-    private static function writeIndex() {
-        //get file names
-        $file_names = self::getFileNames();
-
-        //check if is ssr
-        if ( file_exists('ssr-env.php') ) {
-            copy('index-src.php', 'dist/index.php');
-
-            //replace in ssr-env
-            $ssr_env_contents = file_get_contents('ssr-env.php');
-            $ssr_env_contents = preg_replace(
-                [
-                    "/'APP_CSS' => '.*?'/",
-                    "/'APP_JS' => '.*?'/",
-                    "/'VENDORS_JS' => '.*?'/",
-                    "/'BACK_URL' => '.*?'/",
-                    "/'UPLOADS_URL' => '.*?'/",
-                ],
-                [
-                    "'APP_CSS' => '".$file_names['app_css']."'",
-                    "'APP_JS' => '".$file_names['app_js']."'",
-                    "'VENDORS_JS' => '".$file_names['vendors_js']."'",
-                    "'BACK_URL' => '".$_ENV['VUE_APP_BACK_URL']."'",
-                    "'UPLOADS_URL' => '".$_ENV['VUE_APP_UPLOADS_URL']."'",
-                ],
-                $ssr_env_contents
-            );
-
-            file_put_contents('ssr-env.php', $ssr_env_contents);
-        }
-        else {
-            //replace in index src
-            $index_src_contents = file_get_contents('index-src.php');
-            $index_src_contents = str_replace(
-                [
-                    '{{app_css}}',
-                    '{{app_js}}',
-                    '{{vendors_js}}',
-                    '{{back_url}}'
-                ],
-                [
-                    $file_names['app_css'],
-                    $file_names['app_js'],
-                    $file_names['vendors_js'],
-                    $_ENV['VUE_APP_BACK_URL']
-                ],
-                $index_src_contents
-            );
-
-            file_put_contents('dist/index.php', $index_src_contents);
-        }
-    }
-
-    private static function getFileNames() {
-        $app_css = $app_js = $vendors_js = null;
-
-        $css_files = scandir('dist/css');
-        foreach ( $css_files as $file ) {
-            if ( preg_match('/app/', $file) && !preg_match('/map/', $file) ) {
-                $app_css = $file;
-            }
-
-            //delete map files
-            if ( preg_match('/map/', $file) ) {
-                unlink('dist/css/'.$file);
-            }
+    private static function ssr() {
+        if ( !file_exists('ssr-env.php') ) {
+            return;
         }
 
-        $js_files = scandir('dist/js');
-        foreach ( $js_files as $file ) {
-            if ( preg_match('/app/', $file) && !preg_match('/map/', $file) ) {
-                $app_js = $file;
-            }
+        $index_contents = file_get_contents('dist/index.php');
 
-            if ( preg_match('/chunk/', $file) && !preg_match('/map/', $file) ) {
-                $vendors_js = $file;
-            }
+        preg_match('/\<script type="module" crossorigin src="\/assets\/index-(.*)?\.js/', $index_contents, $match);
+        $js_version = $match[1];
 
-            //delete map files
-            if ( preg_match('/map/', $file) ) {
-                unlink('dist/js/'.$file);
-            }
-        }
+        preg_match('/\<link rel="stylesheet" crossorigin href="\/assets\/index-(.*)?\.css/', $index_contents, $match);
+        $css_version = $match[1];
 
-        return compact('app_css', 'app_js', 'vendors_js');
+        $ssr_env_contents = file_get_contents('ssr-env.php');
+        $ssr_env_contents = preg_replace(
+            [
+                "/'APP_CSS' => '.*?'/",
+                "/'APP_JS' => '.*?'/",
+                "/'BACK_URL' => '.*?'/",
+                "/'UPLOADS_URL' => '.*?'/",
+            ],
+            [
+                "'APP_CSS' => '".$css_version."'",
+                "'APP_JS' => '".$js_version."'",
+                "'BACK_URL' => '".$_ENV['VITE_BACK_URL']."'",
+                "'UPLOADS_URL' => '".$_ENV['VITE_UPLOADS_URL']."'",
+            ],
+            $ssr_env_contents
+        );
+
+        file_put_contents('ssr-env.php', $ssr_env_contents);
     }
 
     private static function htaccess() {
@@ -142,9 +91,9 @@ class VueBuilder implements BuilderInterface
 
     private static function errorPage() {
         //make error page
-        copy('dist/index.html', 'dist/404.html');
-        $contents = file_get_contents('dist/404.html');
-        file_put_contents('dist/404.html', str_replace('<div id=app></div>', '<div id=app>'.
+        copy('dist/index.php', 'dist/404.php');
+        $contents = file_get_contents('dist/404.php');
+        file_put_contents('dist/404.php', str_replace('<div id=app></div>', '<div id=app>'.
         '<div class="content text-center pt-30">'.
         '    <div class="title title--small mb-20 mt-40">(404) Not found.</div>'.
         '    <div class="subtitle">We\'re sorry, the page you\'re looking for doesn\'t exist.</div>'.

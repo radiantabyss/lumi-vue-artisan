@@ -10,9 +10,6 @@ class VuePublisher implements PublisherInterface
             return;
         }
 
-        //delete release index.html in favor of index.php
-        unlink('dist/index.html');
-
         @rename('release', 'release2');
         rename('dist', 'release');
         @delete_recursive('release2');

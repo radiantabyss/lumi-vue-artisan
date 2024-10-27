@@ -21,6 +21,9 @@ class BuildCommand implements CommandInterface
         //run sprites
         self::sprites();
 
+        //run static
+        StaticCommand::run([]);
+
         //build
         self::build();
 
