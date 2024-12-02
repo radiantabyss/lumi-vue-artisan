@@ -1,5 +1,5 @@
 <?php
-namespace LumiCLI;
+namespace Lumi\VueArtisan;
 
 /**
  * PHP Colored CLI
